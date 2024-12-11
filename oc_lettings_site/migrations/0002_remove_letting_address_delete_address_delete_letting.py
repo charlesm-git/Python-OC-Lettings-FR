@@ -25,6 +25,7 @@ class Migration(migrations.Migration):
                     name="Address",
                 ),
             ],
+            # Rename table
             database_operations=[
                 migrations.AlterModelTable(
                     name="Address", table="lettings_address"
@@ -37,6 +38,7 @@ class Migration(migrations.Migration):
                     name="Letting",
                 ),
             ],
+            # Rename table
             database_operations=[
                 migrations.AlterModelTable(
                     name="Letting", table="lettings_letting"

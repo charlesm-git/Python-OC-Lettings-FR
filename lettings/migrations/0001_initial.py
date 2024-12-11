@@ -34,6 +34,7 @@ class Migration(migrations.Migration):
                     ],
                 ),
             ],
+            # Table already exist, see oc_lettings_site 0002
             database_operations=[],
         )
     ]
