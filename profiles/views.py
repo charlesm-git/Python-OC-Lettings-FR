@@ -7,6 +7,10 @@ from .models import Profile
 # faucibus, urna quis auctor pharetra, massa dolor cursus neque, quis dictum
 # lacus d
 def index(request):
+    """
+    Index view of the profile page.
+    Display all the profile objects from the database.
+    """
     profiles_list = Profile.objects.all()
     context = {"profiles_list": profiles_list}
     return render(request, "profiles/index.html", context)
@@ -18,6 +22,10 @@ def index(request):
 # it. Nam aliquam dignissim congue. Pellentesque habitant morbi tristique
 # senectus et netus et males
 def profile(request, username):
+    """
+    Detail profile view.
+    Display the profile details, including it's favourite city.
+    """
     profile = Profile.objects.get(user__username=username)
     context = {"profile": profile}
     return render(request, "profiles/profile.html", context)
