@@ -3,6 +3,31 @@ from django.core.validators import MaxValueValidator, MinLengthValidator
 
 
 class Address(models.Model):
+    """
+    Represents a physical address, typically used for storing location details.
+
+    Fields:
+        - number (PositiveIntegerField): The building or house number (must be
+            between 1 and 9999).
+        - street (CharField): The street name or address line (up to
+            64 characters).
+        - city (CharField): The city or locality (up to 64 characters).
+        - state (CharField): The state or region code
+            (must be 2 characters, e.g., 'CA' for California).
+        - zip_code (PositiveIntegerField): The postal code (must be between
+            1 and 99999).
+        - country_iso_code (CharField): The ISO code of the country (must be
+            3 characters, e.g., 'USA' for United States).
+
+    Meta:
+        verbose_name (str): The singular name for the model ('Address').
+        verbose_name_plural (str): The plural name for the model ('Addresses').
+
+    Methods:
+        __str__(): Returns a string representation of the address in the
+        format: "<number> <street>".
+    """
+
     number = models.PositiveIntegerField(validators=[MaxValueValidator(9999)])
     street = models.CharField(max_length=64)
     city = models.CharField(max_length=64)
@@ -14,11 +39,28 @@ class Address(models.Model):
         max_length=3, validators=[MinLengthValidator(3)]
     )
 
+    class Meta:
+        verbose_name = "Address"
+        verbose_name_plural = "Addresses"
+
     def __str__(self):
         return f"{self.number} {self.street}"
 
 
 class Letting(models.Model):
+    """
+    Represent a property listed for rent
+    
+    Fields :
+        title (Charfield): name of the property listed (up to 256 characters)
+        address (OneToOneFiled): One-to-one relationship to an address.
+            Represent the address of the property
+            
+    Methods:
+        __str__(): Return a string representation of the property in the format
+            "<title>"
+    """
+
     title = models.CharField(max_length=256)
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
 

@@ -8,6 +8,10 @@ from lettings.models import Letting
 # tempor et, bibendum id arcu. Vestibulum ante ipsum primis in faucibus orci
 # luctus et ultrices posuere cubilia curae; Cras eget scelerisque
 def index(request):
+    """
+    Index view of the letting page.
+    Display all the letting objects from the database.
+    """
     lettings_list = Letting.objects.all()
     context = {"lettings_list": lettings_list}
     return render(request, "lettings/index.html", context)
@@ -26,6 +30,10 @@ def index(request):
 # elementum. Donec quis nisi ligula. Integer vehicula tincidunt enim, ac
 # lacinia augue pulvinar sit amet.
 def letting(request, letting_id):
+    """
+    Detail letting view.
+    Display the letting details, including its address.
+    """
     letting = Letting.objects.get(id=letting_id)
     context = {
         "title": letting.title,
