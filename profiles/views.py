@@ -24,7 +24,7 @@ def index(request):
 def profile(request, username):
     """
     Detail profile view.
-    Display the profile details, including it's favourite city.
+    Display the profile details, including its favorite city.
     """
     profile = Profile.objects.get(user__username=username)
     context = {"profile": profile}

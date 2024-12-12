@@ -32,7 +32,7 @@ def index(request):
 def letting(request, letting_id):
     """
     Detail letting view.
-    Display the letting details, including it's address.
+    Display the letting details, including its address.
     """
     letting = Letting.objects.get(id=letting_id)
     context = {
