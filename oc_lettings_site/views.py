@@ -11,3 +11,11 @@ from django.shortcuts import render
 # finibus neque cursus id.
 def index(request):
     return render(request, "oc_lettings_site/index.html")
+
+
+def custom_404(request, exception):
+    return render(request, "oc_lettings_site/errors/404.html", status=404)
+
+
+def custom_500(request):
+    return render(request, "oc_lettings_site/errors/500.html", status=500)
