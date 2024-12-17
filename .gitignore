@@ -2,4 +2,5 @@
 *.pyc
 venv
 .venv
+.env
 .pytest*

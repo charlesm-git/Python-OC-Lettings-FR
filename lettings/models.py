@@ -50,12 +50,12 @@ class Address(models.Model):
 class Letting(models.Model):
     """
     Represent a property listed for rent
-    
+
     Fields :
         title (Charfield): name of the property listed (up to 256 characters)
         address (OneToOneFiled): One-to-one relationship to an address.
             Represent the address of the property
-            
+
     Methods:
         __str__(): Return a string representation of the property in the format
             "<title>"
