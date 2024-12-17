@@ -2,6 +2,16 @@ import os
 
 from pathlib import Path
 
+import sentry_sdk
+from dotenv import load_dotenv
+
+# Sentry configuration
+load_dotenv()
+
+SENTRY_DSN = os.getenv("SENTRY_DSN")
+
+sentry_sdk.init(dsn=SENTRY_DSN, traces_sample_rate=1.0)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
 

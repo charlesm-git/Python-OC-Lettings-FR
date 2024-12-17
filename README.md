@@ -64,6 +64,13 @@ Dans le reste de la documentation sur le développement local, il est supposé q
   Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
 - `.quit` pour quitter
 
+#### Journalisation via Sentry
+
+- `cd /path/to/Python-OC-Lettings-FR`
+- Créer un fichier `.env` via `touch .env` (`New-Item '.env' -ItemType 'file'` sur Windows)
+- Modifier le contenu du fichier `.env` créer en ajoutant:
+  * SENTRY_DSN=link_to_your_sentry_dsn_here
+
 #### Panel d'administration
 
 - Aller sur `http://localhost:8000/admin`
