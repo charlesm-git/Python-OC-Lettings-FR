@@ -1,0 +1,27 @@
+name: Docker Image Building and Pushing
+
+on:
+  workflow_run:
+    workflows: ["Test and Lint"]
+    types:
+      - completed
+
+jobs:
+    build-and-push-docker-image:
+        runs-on: ubuntu-latest
+        if: github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/master'
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v3
+
+            - name: Log in to Docker Hub
+              uses: docker/login-action@v2
+              with:
+                username: ${{secrets.DOCKER_USERNAME}}
+                password: ${{secrets.DOCKER_PASSWORD}}
+
+            - name: Build Docker Image
+              run: docker build . -t ${{secrets.DOCKER_USERNAME}}/oc-lettings-site:${{github.sha}}
+
+            - name: Push Docker Image
+              run: docker push ${{secrets.DOCKER_USERNAME}}/oc-lettings-site:${{github.sha}}

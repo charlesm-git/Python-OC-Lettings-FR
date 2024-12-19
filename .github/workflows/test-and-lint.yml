@@ -1,9 +1,9 @@
-name: CI Pipeline
+name: Test and Lint
 
 on: [push]
 
 jobs:
-  test-and-lint:
+  test-and-linting:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,7 +15,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.13.0  # Adjust as needed
+        python-version: 3.13.0
 
     # Step 3: Install dependencies
     - name: Install dependencies
