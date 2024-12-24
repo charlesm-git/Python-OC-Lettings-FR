@@ -4,4 +4,5 @@ venv
 .venv
 .env
 .pytest*
+.vscode
 staticfiles
