@@ -18,7 +18,7 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 #### Cloner le repository
 
 - `cd /path/to/put/project/in`
-- `git clone https://github.com/OpenClassrooms-Student-Center/Python-OC-Lettings-FR.git`
+- `git clone https://github.com/charlesm-git/Python-OC-Lettings-FR`
 
 #### Créer l'environnement virtuel
 
@@ -67,9 +67,38 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 #### Journalisation via Sentry
 
 - `cd /path/to/Python-OC-Lettings-FR`
-- Créer un fichier `.env` via `touch .env` (`New-Item '.env' -ItemType 'file'` sur Windows)
-- Modifier le contenu du fichier `.env` créer en ajoutant:
+- Créer un fichier .env `touch .env` (`New-Item '.env' -ItemType 'file'` sur Windows)
+- Modifier le contenu du fichier `.env` créé en ajoutant:
   * SENTRY_DSN=link_to_your_sentry_dsn_here
+
+#### Déploiement
+
+Un pipeline CI/CD a été mis en place en utilisant Github Actions. Il permet :
+- le lancement des tests et du linting à chaque commit sur le repository Github
+- le lancement du travail de conteneurisation sur Docker et de déploiement sur Render pour tous commit réalisé sur la branche master
+
+Configuration du pipeline :
+- Workflow de test et de linting : ne requière aucune configuration
+- Workflow de conteneurisation via Docker :
+  * Vous devez posséder un compte Docker Hub
+  * Sur votre repository Github
+    + `Settings` `Secrets and variables` `Actions`
+    + Modifier les variables secrètes `DOCKER_PASSWORD`et `DOCKER_USERNAME` avec vos propres identifiants
+- Workflow de déploiement via Render :
+  * `cd /path/to/Python-OC-Lettings-FR`
+  * `python manage.py collectstatic`
+  * `docker login`
+  * `docker build -t your-docker-username/oc-lettings-site:latest .`
+  * `docker push your-docker-username/oc-lettings-site:latest`
+  * Depuis votre compte Render `Account Settings` `API Keys`, générer une nouvelle clé. Copier cette clé dans la variable secrète du repository Github `RENDER_API_KEY`
+  * Créer un nouveau Web Service sur Render
+    + Source Code : Existing Image
+    + Image URL : `your-docker-username/oc-lettings-site:latest`
+    + Vous pouvez choisir le plan gratuit
+  * Depuis l'URL de la page event, vous pouvez récupérer le service-ID : `https://dashboard.render.com/web/<serviceID>/events`
+  * Copier le serviceID et copier le dans la variable secrète Github `RENDER_SERVICE_ID`
+
+Après cette configuration, le pipeline CI/CD devrait fonctionner correctement.
 
 #### Panel d'administration
 
